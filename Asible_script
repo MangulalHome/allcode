@@ -1,0 +1,25 @@
+echo "[web]" >> /home/ansible/inventory
+echo "node1" >> /home/ansible/inventory
+echo "node2" >> /home/ansible/inventory
+echo "---" >> /home/ansible/sample.yml
+
+
+
+
+ 
+ vi sample.yml
+
+- hosts: web
+  become: yes
+  tasks:
+    - name: install httpd
+      yum: name=httpd state=latest
+- name: retrieve website from repo
+      get_url: url=http://repo.example.com/website.tgz dest=/tmp/website.tgz
+     
+ name: install website
+      unarchive: remote_src=yes src=/tmp/website.tgz dest=/var/www/html/
+
+
+
+ansible-playbook -i /home/ansible/inventory /home/ansible/sample.yml
